@@ -1,7 +1,9 @@
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { BG_URL } from '../util/constant'
 import { checkValidData } from '../util/validate';
+import { auth } from '../util/firebase';
 
 const Login = () => {
   const [isSignInForm, setInSignForm] = useState(true);
@@ -14,8 +16,39 @@ const Login = () => {
     setInSignForm(!isSignInForm);
   }
   const handleButtonClick = () => {
-    const message = checkValidData(email.current.value, password.current.value, name.current.value);
+    const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
+    if (message) return;
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed up 
+          const user = userCredential.user;
+          // ...
+          console.log(":")
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "" + errorMessage)
+          // ..
+        });
+    }
+    else {
+      console.log("sdvdc")
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "" + errorMessage)
+
+        });
+    }
   }
   return (
     <div>
@@ -34,7 +67,7 @@ const Login = () => {
         <input ref={email} type="text" placeholder="Enter Email address" className='p-4 my-4 w-full bg-gray-800' />
         <input ref={password} type="Password" placeholder="Enter Password" className='p-4 my-4 w-full bg-gray-800' />
         <p className='text-red-500 font-bold text-lg py-2'>{errorMessage}</p>
-        <buttton className="p-2 my-2 bg-red-700 w-full rounded-lg" onClick={handleButtonClick}>
+        <buttton className="p-2 my-2 bg-red-700 w-full rounded-lg cursor-pointer" onClick={handleButtonClick}>
           {isSignInForm ? "Sign In" : "Sign Up"}
         </buttton>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>

@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import Body from './Component/Body';
+import appStore from './util/appStore';
 
 function App() {
   return (
     <div className="App">
-     <Body/>
+      <Provider store={appStore}>
+        <Body />
+      </Provider>
     </div>
   );
 }
