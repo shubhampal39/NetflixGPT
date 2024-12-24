@@ -4,7 +4,7 @@ import Login from './Login'
 import Browse from './Browse'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../util/firebase';
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { addUser, removeUser } from '../util/userSlice';
 
 const Body = () => {

@@ -4,6 +4,7 @@ import Header from './Header'
 import { BG_URL } from '../util/constant'
 import { checkValidData } from '../util/validate';
 import { auth } from '../util/firebase';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInForm, setInSignForm] = useState(true);
@@ -11,6 +12,7 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+  const navigate = useNavigate();
 
   const toggleSignInForm = () => {
     setInSignForm(!isSignInForm);
@@ -22,25 +24,20 @@ const Login = () => {
     if (!isSignInForm) {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed up 
           const user = userCredential.user;
-          // ...
-          console.log(":")
+          navigate("/Browse")
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "" + errorMessage)
-          // ..
         });
     }
     else {
-      console.log("sdvdc")
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed in 
           const user = userCredential.user;
-          // ...
+          navigate("/Browse")
         })
         .catch((error) => {
           const errorCode = error.code;
