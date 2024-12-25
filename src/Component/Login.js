@@ -1,10 +1,12 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { BG_URL } from '../util/constant'
 import { checkValidData } from '../util/validate';
 import { auth } from '../util/firebase';
 import { useNavigate } from "react-router-dom";
+import { addUser } from '../util/userSlice';
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSignInForm, setInSignForm] = useState(true);
@@ -13,6 +15,7 @@ const Login = () => {
   const password = useRef(null);
   const name = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
     setInSignForm(!isSignInForm);
@@ -25,7 +28,23 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/Browse")
+          updateProfile(user, {
+            displayName: name.current.value, photoURL: "https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp"
+          }).then(() => {
+            const { uid, email, displayName, photoURL } = auth.currentUser;
+            dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))
+            // Profile updated!
+            navigate("/Browse");
+            // ...
+          }).catch((error) => {
+            // An error occurred
+            // ...
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMessage(errorCode + "" + errorMessage)
+
+          });
+
         })
         .catch((error) => {
           const errorCode = error.code;
