@@ -4,7 +4,6 @@ import Header from './Header'
 import { BG_URL } from '../util/constant'
 import { checkValidData } from '../util/validate';
 import { auth } from '../util/firebase';
-import { useNavigate } from "react-router-dom";
 import { addUser } from '../util/userSlice';
 import { useDispatch } from "react-redux";
 
@@ -14,7 +13,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
@@ -34,7 +32,7 @@ const Login = () => {
             const { uid, email, displayName, photoURL } = auth.currentUser;
             dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))
             // Profile updated!
-            navigate("/Browse");
+            // navigate("/Browse");
             // ...
           }).catch((error) => {
             // An error occurred
@@ -56,7 +54,6 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/Browse")
         })
         .catch((error) => {
           const errorCode = error.code;
