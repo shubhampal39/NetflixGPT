@@ -19,9 +19,6 @@ const Body = () => {
     }
   ])
 
-  // useEffect(() => {\\\\
-
-
   return (
     <div>
       <RouterProvider router={appRouter} />

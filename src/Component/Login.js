@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useRef, useState } from 'react'
 import Header from './Header'
-import { BG_URL } from '../util/constant'
+import { BG_URL, USER_AVATAR } from '../util/constant'
 import { checkValidData } from '../util/validate';
 import { auth } from '../util/firebase';
 import { addUser } from '../util/userSlice';
@@ -27,7 +27,7 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value, photoURL: "https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp"
+            displayName: name.current.value, photoURL: USER_AVATAR
           }).then(() => {
             const { uid, email, displayName, photoURL } = auth.currentUser;
             dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }))

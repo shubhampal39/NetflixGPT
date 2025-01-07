@@ -21,7 +21,7 @@ const Header = () => {
 
   }
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("sdvd");
         const { uid, email, displayName, photoURL } = user;
@@ -32,7 +32,12 @@ const Header = () => {
         navigate("/");
       }
     });
-  }, [])
+
+    //unsubscibed when compnent unmount
+    return () => unsubscribe();
+  },
+
+    [])
 
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
