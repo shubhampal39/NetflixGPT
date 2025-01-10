@@ -6,13 +6,20 @@ export const USER_AVATAR =
 
 // export const USER_AVATAR = "https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp"
 
-// export const API_OPTIONS = {
-//   method: "GET",
-//   headers: {
-//     accept: "application/json",
-//     Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
-//   },
-// };
+export const API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzNkYTEzMWViNDgzNmIyM2E4M2I2ZDk4NDFmN2YzMSIsIm5iZiI6MTczNjQ5Mzg0My40MTgsInN1YiI6IjY3ODBjYjEzMzg4MTc0MzdlMmJiMTFmYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.I7dCtw4n5irJXQJz-5FGLrLZnhsuUwECqngNBvjfjU4",
+  },
+};
+
+// const options = {method: 'GET', headers: {accept: 'application/json'}};
+
+// fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+//   .then(res => res.json())
+//   .then(res => console.log(res))
+//   .catch(err => console.error(err));
 
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
 
