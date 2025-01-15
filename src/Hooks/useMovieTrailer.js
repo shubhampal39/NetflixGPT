@@ -6,7 +6,7 @@ import { API_OPTIONS } from "../util/constant";
 const useMovieTrailer = (movieId) => {
     const dispatch = useDispatch();
     const getMovieVideos = async () => {
-        const data = await fetch('https://api.themoviedb.org/3/movie/{movieId}/videos', API_OPTIONS);
+        const data = await fetch("https://api.themoviedb.org/3/movie/" + movieId + "/videos", API_OPTIONS);
         console.log("data===>", data)
         const json = await data.json();
         console.log(json);
