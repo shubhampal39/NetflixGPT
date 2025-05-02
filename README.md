@@ -75,7 +75,7 @@ Below Implemented point
 
 ## Deployment setup firebase :
 Create project with firebase and hosting also :
-https://console.firebase.google.com/u/0/project/namastenetflixgpt/overview
+
  - install firebase : 'npm i firebase'
  - install firebase CLI : 'npm i -g firebase-tools'
  - firebase login : 'firebase login'
